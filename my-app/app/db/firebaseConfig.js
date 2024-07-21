@@ -15,4 +15,4 @@ const app = initializeApp(firebaseConfig);
 
 export default app;
 
-// creation de la db  et le storage sur le site
+// creation de la db(firestoreDatabase)  et le storage (storage) sur le site
