@@ -1,0 +1,50 @@
+ "use client"
+import React, { useEffect } from 'react'
+//recuperation des données et creation dun compte dans la db 
+import {doc,getFirestore,setDoc} from 'firebase/firestore';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import app from '../db/firebaseConfig';
+import Image from 'next/image';
+import Logo from '../../public/Logo.svg';
+import { IoIosArrowDown } from 'react-icons/io';
+
+
+
+export default function Header() {
+
+    const {data:session} = useSession();
+    const router = useRouter();
+    const db =  getFirestore(app)
+  
+    //  useEffect(()=>{
+    // //    saveUserInfo()
+    //  },[session])
+
+    //  const saveUserInfo = async ()=> {
+    //      // si seesion ets true et qu'on a un user 
+    //     if(session && session.user && session.user.email){
+    //       //on va push les données dans la db 
+    //       await setDoc(doc(db,"user" ,session.user.email),{
+    //         username: session.user.name,
+    //         userEmail : session.user.email,
+    //         userImage : session.user.image
+    //       })
+    //     }
+            
+    //  }
+
+  return (
+    <div className="flex items-center p-5 gap-5">
+    <button onClick={()=> router.push('/')} className="flex items-center gap-5">
+     <Image src={Logo} alt='Logo pinterest' className='w-10 h-10 p-1 hover:bg-[#f1f1f1] hover:shadow-md rounded-full' />
+     
+     <span className='font-bold text[#cb1f27] md:text-xl'>Pinterest</span>
+    </button>
+    <button className="bg-gray-200 hover:bg-grey-300 font-samibold gap-2 p-3 transition-all flex items-center text-black">
+      <span>Explorer</span>
+      <span><IoIosArrowDown/></span>
+    </button>
+    </div>
+  )
+}
