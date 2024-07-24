@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import app from '../db/firebaseConfig';
 import Image from 'next/image';
 import Logo from '../../public/Logo.svg';
-import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowDown, IoIosSearch } from 'react-icons/io';
 
 
 
@@ -41,10 +41,17 @@ export default function Header() {
      
      <span className='font-bold text[#cb1f27] md:text-xl'>Pinterest</span>
     </button>
-    <button className="bg-gray-200 hover:bg-grey-300 font-samibold gap-2 p-3 transition-all flex items-center text-black">
+    <button className="bg-gray-200 hover:bg-grey-300 font-samibold gap-2 p-3 transition-all flex items-center text-black rounded-full">
       <span>Explorer</span>
       <span><IoIosArrowDown/></span>
     </button>
+
+    <div className="flex gap-4 flex-grow items-center">
+      <div className="flex items-center p-3 gap-3 w-full rounded-full transition-all md:hover:bg-black-200 ">
+        <IoIosSearch className='text-3xl text-gray-500 cursor-pointer'/>
+        <input type="text" className="hidden border-none outline-none md:flex bg-transparent w-full" />
+      </div>
+    </div>
     </div>
   )
 }
