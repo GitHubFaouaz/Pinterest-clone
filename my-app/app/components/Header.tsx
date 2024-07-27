@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import app from '../db/firebaseConfig';
 import Image from 'next/image';
 import Logo from '../../public/Logo.svg';
-import { IoIosArrowDown, IoIosSearch } from 'react-icons/io';
+import { IoIosArrowDown, IoIosNotifications, IoIosSearch } from 'react-icons/io';
 
 
 
@@ -47,10 +47,16 @@ export default function Header() {
     </button>
 
     <div className="flex gap-4 flex-grow items-center">
-      <div className="flex items-center p-3 gap-3 w-full rounded-full transition-all md:hover:bg-black-200 ">
+      <div className="flex items-center p-3 gap-3 w-full rounded-full transition-all md:hover:bg-gray-200 ">
         <IoIosSearch className='text-3xl text-gray-500 cursor-pointer'/>
         <input type="text" className="hidden border-none outline-none md:flex bg-transparent w-full" />
       </div>
+      
+      <button className="rounded-full bg-gray-200 p-3 font-semibold hover:bg-gray-300 transition-all">
+        <IoIosNotifications/>
+      </button>
+
+      {}
     </div>
     </div>
   )
