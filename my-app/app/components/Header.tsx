@@ -2,12 +2,13 @@
 import React, { useEffect } from 'react'
 //recuperation des données et creation dun compte dans la db 
 import {doc,getFirestore,setDoc} from 'firebase/firestore';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import app from '../db/firebaseConfig';
 import Image from 'next/image';
 import Logo from '../../public/Logo.svg';
 import { IoIosArrowDown, IoIosNotifications, IoIosSearch } from 'react-icons/io';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 
 
@@ -56,7 +57,18 @@ export default function Header() {
         <IoIosNotifications/>
       </button>
 
-      {}
+      {session?.user ? (
+        <div className="flex items-center gap-3">
+          <button>
+            <Image width={40} height={40}    src={session.user.image ?? '/default-profile.png' }alt='image profil'/>
+          </button>
+          <button className="text-sm text-white bg-[#cb1f27] rounded-full hover:bg-red-900"></button>
+        </div>
+      ) :(
+        <button onClick={()=> signIn()} className="bg-[#cb1f27] rounded-full p-3 transition-all font-semibold hover:bg-red-900 text-white">
+          <FaRegUserCircle/>
+        </button>
+      )}
     </div>
     </div>
   )
