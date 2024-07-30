@@ -16,9 +16,7 @@ export default function Header() {
     const {data:session} = useSession();
     const router = useRouter();
     const db =  getFirestore(app)
-    console.log("envId", process.env.GOOGLE_CLIENT_ID);
-    console.log("envSecret",process.env.GOOGLE_CLIENT_SECRET,);
-    console.log("envTest",process.env.test);
+   
 
 
     //  useEffect(()=>{
