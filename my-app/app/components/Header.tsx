@@ -12,30 +12,39 @@ import { FaRegUserCircle } from 'react-icons/fa';
 
 
 export default function Header() {
-
+  
     const {data:session} = useSession();
     const router = useRouter();
     const db =  getFirestore(app)
-   
+    
 
 
     //  useEffect(()=>{
     // //    saveUserInfo()
     //  },[session])
 
-    //  const saveUserInfo = async ()=> {
-    //      // si seesion ets true et qu'on a un user 
-    //     if(session && session.user && session.user.email){
-    //       //on va push les données dans la db 
-    //       await setDoc(doc(db,"user" ,session.user.email),{
-    //         username: session.user.name,
-    //         userEmail : session.user.email,
-    //         userImage : session.user.image
-    //       })
-    //     }
+     const saveUserInfo = async ()=> {
+         // si seesion est true et qu'on a un user 
+        if(session && session.user && session.user.email){
+          //on va push les données dans la db 
+          await setDoc(doc(db,"user" ,session.user.email),{
+            userName: session.user.name,
+            userEmail : session.user.email,
+            userImage : session.user.image
+          })
+        }
             
-    //  }
+     }
 
+     const onCreateClick = ()=> {
+      if(session){
+        router.push('/articleBuilder')
+      }else{
+        signIn()
+      }
+     }
+    
+         
   return (
     <div className="flex items-center p-5 gap-5">
     <button onClick={()=> router.push('/')} className="flex items-center gap-5">
@@ -60,7 +69,8 @@ export default function Header() {
 
       {session?.user ? (
         <div className="flex items-center gap-3">
-          <button>
+          {/* <button onClick={()=>`/dashbord/${session.user.email}`}> */}
+          <button onClick={()=> router.push(`/dashboard/${session?.user?.email}`)}>
             <Image width={40} height={40}    src={session.user.image ?? '/default-profile.png' }alt='image profil'/>
           </button>
           <button className="text-sm text-white bg-[#cb1f27] rounded-full hover:bg-red-900"></button>
