@@ -8,7 +8,7 @@ import app from '../db/firebaseConfig';
 import Image from 'next/image';
 import Logo from '../../public/Logo.svg';
 import { IoIosArrowDown, IoIosNotifications, IoIosSearch } from 'react-icons/io';
-import { FaRegUserCircle } from 'react-icons/fa';
+import { FaPlus, FaRegUserCircle } from 'react-icons/fa';
 
 
 export default function Header() {
@@ -69,11 +69,12 @@ export default function Header() {
 
       {session?.user ? (
         <div className="flex items-center gap-3">
-          {/* <button onClick={()=>`/dashbord/${session.user.email}`}> */}
           <button onClick={()=> router.push(`/dashboard/${session?.user?.email}`)}>
             <Image width={40} height={40}    src={session.user.image ?? '/default-profile.png' }alt='image profil'/>
           </button>
-          <button className="text-sm text-white bg-[#cb1f27] rounded-full hover:bg-red-900"></button>
+          <button className="text-sm text-white bg-[#cb1f27] rounded-full hover:bg-red-900 p-2">
+          <FaPlus/>
+          </button>
         </div>
       ) :(
         <button onClick={()=> signIn()} className="bg-[#cb1f27] rounded-full p-3 transition-all font-semibold hover:bg-red-900 text-white">
