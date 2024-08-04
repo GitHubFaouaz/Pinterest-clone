@@ -2,7 +2,8 @@
 
 import {doc,getDoc,getFirestore,setDoc} from 'firebase/firestore';
 import { useEffect, useState } from "react"
-import app from '../../db/firebaseConfig'
+// import app from '../../db/firebaseConfig'
+import app from '@/app/db/firebaseConfig'
 import UserInfo from '../../components/UserInfo';
 
 
@@ -10,27 +11,25 @@ import UserInfo from '../../components/UserInfo';
 
 export default function page({params}) {
 
-const db = getFirestore(app)
-const [userInfo,setUserInfo] = useState(null)
+  const db = getFirestore(app);
+  const [userInfo, setUserInfo] = useState(null);
 
+  const getUserInfo = async (email) => {
+    const docRef = doc(db, "user", email); // Cherche le mail dans la collection "user" de la base de données
+    const docSnap = await getDoc(docRef);
 
-const getUserInfo = async (email)=> {
-  const docRef = doc(db,"user", email) ;// on cherché le mail dans le user de la base de donnée
-  const docSnap = await getDoc(docRef);
-
-  if(docSnap.exists()){
-    const userData = docSnap.data()
-    setUserInfo(userData)
-  }else {
-    console.log("aucune information");
-  }
+    if (docSnap.exists()) {
+      const userData = docSnap.data();
+      setUserInfo(userData);
+    } else {
+      console.log("Aucune information trouvée.");
+    }
 }
 
 useEffect(()=>{
 if(params){
-    getUserInfo(params.userId.replace("%40" ,"@"))
-    // on remplace %40 qui n'est pas prit en compte par @ du mail http://localhost:3000/dashboard/faouazaaa@gmail.com
-    getUserInfo(email); 
+  const email = params.userId.replace("%40", "@");
+  getUserInfo(email);
 }
 },[params])
 
@@ -46,3 +45,5 @@ if(params){
   )
 }
 // params pour recuperer le mail dans d'url
+//  l'adresse e-mail faouazaaa@gmail.com sera encodée comme faouazaaa%40gmail.com dans l'URL.
+// Après le remplacement, faouazaaa%40gmail.com devient faouazaaa@gmail.com
