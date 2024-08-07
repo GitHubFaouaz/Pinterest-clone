@@ -2,63 +2,85 @@
 
 import {doc,getDoc,getFirestore,setDoc} from 'firebase/firestore';
 import { useEffect, useState } from "react"
-import app from '../../db/firebaseConfig'
-// import app from '@/app/db/firebaseConfig'
+import app from '@/app/db/firebaseConfig'
 import UserInfo from '../../components/UserInfo';
 import { useSession } from 'next-auth/react';
 
 
 
 
-export default function page({params}) {
-
-  const session = useSession();
-  // const { status, user} = session ;
-  console.log( 'session' , session);
-  const {user} = session; 
-  console.log(user);
-  console.log(session.data);
-//  if(status === 'authenticated') {
-//   // console.log(session.user);
-// //  return <p>Signed in as {session.user.email}</p>
-//  }
+// export default function page({params}) {
 
  
-  const db = getFirestore(app);
-  const [userInfo, setUserInfo] = useState('');
 
-  const getUserInfo = async (email) => {
-    const docRef = doc(db, "user", email); // Cherche le mail dans la collection "user" de la base de données
-    const docSnap = await getDoc(docRef);
+ 
+//   const db = getFirestore(app);
+//   const [userInfo, setUserInfo] = useState('');
 
-    if (docSnap.exists()) {
-      const userData = docSnap.data();
-      setUserInfo(userData);
-    } else {
-      console.log("Aucune information trouvée.");
-    }
-}
+//   const getUserInfo = async (email) => {
+//     const docRef = doc(db, "user", email); // Cherche le mail dans la collection "user" de la base de données
+//     const docSnap = await getDoc(docRef);
 
-useEffect(()=>{
-if(params){
-  const email = params.userId.replace("%40", "@");
-  getUserInfo(email);
-}
-},[params])
+//     if (docSnap.exists()) {
+//       const userData = docSnap.data();
+//       setUserInfo(userData);
+//     } else {
+//       console.log("Aucune information trouvée.");
+//     }
+// }
+
+// useEffect(()=>{
+// if(params){
+//   const email = params.userId.replace("%40", "@");
+//   getUserInfo(email);
+// }
+// },[params])
 
 
-  return (
-    <div className="bg-[#e9e9e9]  min-h-screen flex items-center justify-center">
-    {userInfo?(
+//   return (
+//     <div className="bg-[#e9e9e9]  min-h-screen flex items-center justify-center">
+//     {userInfo?(
 
-    <div>
-      <UserInfo userInfo = {userInfo}/>
-    </div>
-    ) : null}
-    </div>
-  )
+//     <div>
+//       <UserInfo userInfo = {userInfo}/>
+//     </div>
+//     ) : null}
+//     </div>
+//   )
 
-}
+// }
+
+
 // params pour recuperer le mail dans d'url
 //  l'adresse e-mail faouazaaa@gmail.com sera encodée comme faouazaaa%40gmail.com dans l'URL.
 // Après le remplacement, faouazaaa%40gmail.com devient faouazaaa@gmail.com
+
+export default function page() {
+  
+  const [userInfo, setUserInfo] = useState('');
+
+  const  getUserInfo = ()=> {
+
+    const { data: session, status } = useSession();
+  
+    if (status === 'loading') {
+      return <p>Loading...</p>;
+    }
+  
+    if (status === 'authenticated' && session && session.user) {
+      console.log(session); 
+      setUserInfo(session)
+  }
+  getUserInfo()
+    return (
+      <div>
+         <UserInfo userInfo = {userInfo}/>
+      </div>
+    );
+  }
+  
+  
+  // }
+  {/* <p>Signed in as {session.user.email}</p>
+  <p>User Name: {session.user.name}</p>
+  <img src={session.user.image} alt="User Image" /> */}
