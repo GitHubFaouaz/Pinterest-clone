@@ -2,7 +2,7 @@
 
 import {doc,getDoc,getFirestore,setDoc} from 'firebase/firestore';
 import { useEffect, useState } from "react"
-import app from '@/app/db/firebaseConfig'
+// import app from '@/app/db/firebaseConfig'
 import UserInfo from '../../components/UserInfo';
 import { useSession } from 'next-auth/react';
 
@@ -55,32 +55,31 @@ import { useSession } from 'next-auth/react';
 //  l'adresse e-mail faouazaaa@gmail.com sera encodée comme faouazaaa%40gmail.com dans l'URL.
 // Après le remplacement, faouazaaa%40gmail.com devient faouazaaa@gmail.com
 
-export default function page() {
-  
-  const [userInfo, setUserInfo] = useState('');
+export default function Page() {
+  const { data: session, status } = useSession();
+  const [userInfo, setUserInfo] = useState(null);
 
-  const  getUserInfo = ()=> {
-
-    const { data: session, status } = useSession();
-  
-    if (status === 'loading') {
-      return <p>Loading...</p>;
+  useEffect(() => {
+    if (status === 'authenticated' && session) {
+      setUserInfo(session);
     }
-  
-    if (status === 'authenticated' && session && session.user) {
-      console.log(session); 
-      setUserInfo(session)
+  }, [status, session]);
+
+  if (status === 'loading') {
+    return <p>Loading...</p>;
   }
-  getUserInfo()
+
+  if (status === 'authenticated' && userInfo) {
     return (
       <div>
-         <UserInfo userInfo = {userInfo}/>
+        <UserInfo userInfo={userInfo} />
+        <p>Signed in as {session.user.email}</p>
+        <p>User Name: {session.user.name}</p>
+        <img src={session.user.image} alt="User Image" />
       </div>
     );
   }
+
+  return <p>Not signed in</p>;
+}
   
-  
-  // }
-  {/* <p>Signed in as {session.user.email}</p>
-  <p>User Name: {session.user.name}</p>
-  <img src={session.user.image} alt="User Image" /> */}
