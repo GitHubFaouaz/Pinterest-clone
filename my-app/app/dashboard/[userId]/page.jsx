@@ -73,9 +73,9 @@ export default function Page() {
     return (
       <div>
         <UserInfo userInfo={userInfo} />
-        <p>Signed in as {session.user.email}</p>
+        {/* <p>Signed in as {session.user.email}</p>
         <p>User Name: {session.user.name}</p>
-        <img src={session.user.image} alt="User Image" />
+        <img src={session.user.image} alt="User Image" /> */}
       </div>
     );
   }
