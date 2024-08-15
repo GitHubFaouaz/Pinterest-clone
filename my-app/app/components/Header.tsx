@@ -15,7 +15,6 @@ export default function Header() {
   
     const {data:session} = useSession();
     const router = useRouter();
-    const db =  getFirestore(app)
     
 
 
@@ -23,26 +22,26 @@ export default function Header() {
     // //    saveUserInfo()
     //  },[session])
 
-     const saveUserInfo = async ()=> {
-         // si seesion est true et qu'on a un user 
-        if(session && session.user && session.user.email){
-          //on va push les données dans la db 
-          await setDoc(doc(db,"user" ,session.user.email),{
-            userName: session.user.name,
-            userEmail : session.user.email,
-            userImage : session.user.image
-          })
-        }
+    //  const saveUserInfo = async ()=> {
+    //      // si seesion est true et qu'on a un user 
+    //     if(session && session.user && session.user.email){
+    //       //on va push les données dans la db 
+    //       await setDoc(doc(db,"user" ,session.user.email),{
+    //         userName: session.user.name,
+    //         userEmail : session.user.email,
+    //         userImage : session.user.image
+    //       })
+    //     }
             
-     }
+    //  }
 
-     const onCreateClick = ()=> {
-      if(session){
-        router.push('/articleBuilder')
-      }else{
-        signIn()
-      }
-     }
+    //  const onCreateClick = ()=> {
+    //   if(session){
+    //     router.push('/articleBuilder')
+    //   }else{
+    //     signIn()
+    //   }
+    //  }
     
          
   return (
