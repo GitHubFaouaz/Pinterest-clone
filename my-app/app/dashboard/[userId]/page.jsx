@@ -25,7 +25,7 @@ export default  function Page() {
   if (status === 'authenticated' && userInfo) {
     return (
       <div>
-        <UserInfo userInfo={userInfo} />
+        <UserInfo userInfo={userInfo} session={session} />
       </div>
     );
   }
