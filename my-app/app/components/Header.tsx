@@ -38,7 +38,7 @@ export default function Header() {
 
      const onClickCreatePost = ()=> {
       if(session){
-        router.push('/articleBuilder')
+        router.push('/articlebuilder')
       }else{
         signIn()
       }
