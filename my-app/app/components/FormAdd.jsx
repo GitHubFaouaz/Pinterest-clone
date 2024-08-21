@@ -47,8 +47,10 @@ export default function FormAdd() {
       <UploadImage setFile={(file)=> setFile(file)}/>
         <div className="col-span-2">
           <div className="w-[100%]">
-            <input type="text" onChange={(e)=>setTitle( e.target.value)} placeholder="Ajouter un titre" className="text-[35px] outline-none font-bold w-ful border-b-[2px] border-gray-400 placehorder-gray-400" />
+            <input type="text" onChange={(e)=>setTitle(e.target.value)} placeholder="Ajouter un titre" className="text-[35px] outline-none font-bold w-ful border-b-[2px] border-gray-400 placehorder-gray-400" />
             <h2 className="text-[12px] text-gray-400 w-full wb-8"> Les premiers 40 caractères sont ce qui apparaissent dans le flux </h2>
+            
+            <textarea onChange={(e)=> setDesc(e.target.value)} placeholder="Ajouter une description"  className="w-full pb-4 mt-8 outline-none text-[14px] border-gray-400 border-b-[2px] placeholder-gray-400" cols={30}></textarea>
           </div>
         </div>
      </div>
