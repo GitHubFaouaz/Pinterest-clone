@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoArrowUpCircleOutline } from "react-icons/io5";
 
 //On telecharge l'image    
 export default function UploadImage({setFile}) {
   const [selectFile,setSelectFile] =useState()
+  // console.log('image' , selectFile);
   
-  useEffect(() => {
+  
+  useEffect((e) => {
+
+    
     return () => {
       if (selectFile) {
+        // onlibère createObjectURL en appelant URL.revokeObjectURL(url) une fois que l'URL n'est plus nécessaire.
         URL.revokeObjectURL(selectFile);
       }
     };
