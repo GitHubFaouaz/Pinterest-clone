@@ -5,13 +5,15 @@ import UploadImage from "./UploadImage"
 import { useSession } from 'next-auth/react';
 import { useRouter } from "next/navigation";
 import UserTag from "./UserTag";
+
+
 export default function FormAdd() {
     
   const {data:session} = useSession();
   const [titlePost,setTitle] = useState();
   const [descPost,setDesc] = useState();
   const [linkPost,setLink] = useState();
-  const [file,setFile] = useState();
+  const [fileImage,setFileImage] = useState();
   const [loading,setLoading] = useState(false);
   
   const router = useRouter()
@@ -46,7 +48,7 @@ export default function FormAdd() {
       </button>
      </div>
      <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-      <UploadImage setFile={(file)=> setFile(file)}/>
+      <UploadImage setFile={(file)=> setFileImage(file)}/>{/* on recupère les images du props setFile */} 
         <div className="col-span-2">
           <div className="w-[100%]">
             <input type="text" onChange={(e)=>setTitle(e.target.value)} placeholder="Ajouter un titre" className="text-[35px] outline-none font-bold w-ful border-b-[2px] border-gray-400 placehorder-gray-400" />
