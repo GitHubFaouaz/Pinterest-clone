@@ -17,15 +17,7 @@ export default function UploadImage({setFile}) {
   }, [selectFile]);
   return (
     <div className='h-[450px] bg-[e9e9e9] rounded-lg'>
-      <label htmlFor="" className="m-5 flex flex-col justify-center items-center cursor-pointer h-[90%] border-[2px] border-grey-200 border-dashed rounded-lg text-grey-600">
-        {/* {!selectFile? <div className='flex flex-col items-center'>
-          <IoArrowUpCircleOutline  className='text-[22px]'/>
-          <h2 className='font-semibold'> cliquer pour telecharger </h2>
-        </div> : null }
-        {selectFile ?
-         <img src={window.URL.createObjectURL(selectFile)} alt='select image' className='object-contain h-[90%]' height={500}  width={500}/>
-         : null}
-         <input type="file" id='dropzone-file' className=""   onChange={(e)=> {setSelectFile(e.target.files[0]) ; setFile(e.target.files[0])}}/>  */}
+      <label htmlFor="" className="m-5 flex flex-col justify-center items-center cursor-pointer h-[90%] border-[2px] border-grey-200 border-dashed rounded-lg text-grey-600 relative">
           {!selectFile ? (
           <div className='flex flex-col items-center'>
             <IoArrowUpCircleOutline className='text-[22px]' />
@@ -37,7 +29,7 @@ export default function UploadImage({setFile}) {
         <input
           type="file"
           id="dropzone-file"
-          className="hidden"
+          className="opacity-0 absolute top-[45%] left-[92px] pointer w-4 h-4 rounded-full"
           onChange={(e) => {
             const file = e.target.files[0];
             setSelectFile(file);
