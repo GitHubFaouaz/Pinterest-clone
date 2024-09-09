@@ -5,7 +5,7 @@ import UploadImage from "./UploadImage"
 import { useSession } from 'next-auth/react';
 import { useRouter } from "next/navigation";
 import UserTag from "./UserTag";
-import onSave from '../utils/onsave'
+// import {onSave} from '../utils/onsave'
 
 
 
@@ -21,10 +21,36 @@ export default function FormAdd() {
   const router = useRouter()
   const data = Date.now().toString()
 
-  // const onSave = ()=> {
-  //   // setLoading(true)
-  //   // uploadFile()
-  // }
+  const onSave = async () => {
+    setLoading(true); // Active l'état de chargement
+
+    const formData = new FormData();
+    formData.append('title', titlePost);
+    formData.append('desc', descPost);
+    formData.append('link', linkPost);
+    formData.append('image', fileImage);
+    formData.append('userName', session.user.name);
+    formData.append('userEmail', session.user.email);
+    formData.append('userImage', session.user.image);
+
+    // Appel à l'API backend pour sauvegarder la publication
+    try {
+      const response = await fetch('/api/posts', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log('Données enregistrées avec succès');
+      } else {
+        console.log('Erreur lors de l\'enregistrement');
+      }
+    } catch (error) {
+      console.error('Erreur', error);
+    } finally {
+      setLoading(false); // Désactive l'état de chargement
+    }
+  }
 
   return (
     <div className="bg-white p-16 rounded-2xl">

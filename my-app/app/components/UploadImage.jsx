@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { IoArrowUpCircleOutline } from "react-icons/io5";
 
-//On telecharge l'image    
+//On recupère l'image apres telechargerment     
 export default function UploadImage({setFile}) {
   const [selectFile,setSelectFile] =useState()
   // console.log('image' , selectFile);
   
   
-  useEffect(() => {
-    return () => {
-      if (selectFile) {
-        // onlibère createObjectURL en appelant URL.revokeObjectURL(url) une fois que l'URL n'est plus nécessaire.
-        URL.revokeObjectURL(selectFile);
-      }
-    };
-  }, [selectFile]);
+  // useEffect(() => {
+  //   return () => {
+  //     if (selectFile) {
+  //       // onlibère createObjectURL en appelant URL.revokeObjectURL(url) une fois que l'URL n'est plus nécessaire.
+  //       URL.revokeObjectURL(selectFile);
+  //     }
+  //   };
+  // }, [selectFile]);
   return (
     <div className='h-[450px] bg-[e9e9e9] rounded-lg'>
       <label htmlFor="" className="m-5 flex flex-col justify-center items-center cursor-pointer h-[90%] border-[2px] border-grey-200 border-dashed rounded-lg text-grey-600 relative">
@@ -33,7 +33,7 @@ export default function UploadImage({setFile}) {
           onChange={(e) => {
             const file = e.target.files[0];
             setSelectFile(file);
-            setFile(file); // Met à jour le fichier dans le parent
+            setFile(file); // Met à jour le fichier dans le parent pour l'envoyer au composant FormAdd via props 
           }}/>
       </label>
     </div>
