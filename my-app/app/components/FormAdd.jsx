@@ -35,7 +35,7 @@ export default function FormAdd() {
 
     // Appel à l'API backend pour sauvegarder la publication
     try {
-      const response = await fetch('/api/posts', {
+      const response = await fetch('/api/auth/posts', {
         method: 'POST',
         body: formData,
       });
@@ -45,6 +45,7 @@ export default function FormAdd() {
       } else {
         console.log('Erreur lors de l\'enregistrement');
       }
+    
     } catch (error) {
       console.error('Erreur', error);
     } finally {
