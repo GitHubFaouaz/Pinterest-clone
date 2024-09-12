@@ -35,7 +35,7 @@ export default function FormAdd() {
 
     // Appel à l'API backend pour sauvegarder la publication
     try {
-      const response = await fetch('/api/auth/posts', {
+      const response = await fetch('/api/posts', {
         method: 'POST',
         body: formData,
       });
