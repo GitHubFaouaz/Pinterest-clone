@@ -40,10 +40,14 @@ export default function FormAdd() {
         body: formData,
       });
 
-      if (response.ok) {
-        console.log('Données enregistrées avec succès');
-      } else {
-        console.log('Erreur lors de l\'enregistrement');
+      // if (response.ok) {
+      //   console.log('Données enregistrées avec succès');
+      // } else {
+      //   console.log('Erreur lors de l\'enregistrement');
+      // }
+      if (!response.ok) {
+        const errorData = await response.json(); // Lit la réponse JSON du serveur
+        console.log('Erreur lors de l\'enregistrement :', errorData); // Affiche les détails de l'erreur
       }
     
     } catch (error) {
