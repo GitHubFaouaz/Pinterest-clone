@@ -1,8 +1,8 @@
 // route API pour gérer l'upload de l'image et l'insertion des informations dans la base de données.
 
 import { PrismaClient } from "@prisma/client";
-import formidable from "formidable"; // Pour gérer les uploads multipart/form-data
-import fs from "fs";
+// import formidable from "formidable"; // Pour gérer les uploads multipart/form-data
+// import fs from "fs";
 
 const prisma = new PrismaClient();
 
