@@ -6,11 +6,36 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const config = {
-  api: {
-    bodyParser: false, // Désactive le bodyParser intégré pour gérer les fichiers
-  },
-};
+export async function POST(req) {
+  try {
+    const formData = await req.formData(); // Récupérer les données du formulaire
+    const { title, desc, link, userName, userEmail, userImage } =
+      Object.fromEntries(formData);
+
+    const newPost = prisma.post.create({
+      data: {
+        title: title,
+        desc: desc,
+        link: link,
+        image: "pas encore", // Enregistrez le chemin de l'image
+        userName: userName,
+        userEmail: userEmail,
+        userImage: userImage,
+      },
+    });
+
+    // Logique pour traiter et sauvegarder les données
+    return new Response(
+      // JSON.stringify({ success: true, data: "Données enregistrées" }),
+      res.status(200).json(newPost)
+    );
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ error: "Erreur lors de l'enregistrement" }),
+      { status: 500 }
+    );
+  }
+}
 
 // export default async function handler(req, res) {
 //   if (req.method === "POST") {
@@ -56,28 +81,30 @@ export const config = {
 //   }
 // }
 
-export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const { title, desc, link, image, userName, userEmail, userImage } =
-      req.body;
+// export default async function handler(req, res) {
+//   if (req.method === "POST") {
+//     // const { title, desc, link, image, userName, userEmail, userImage } =
+//     //   req.body;
 
-    try {
-      const newPost = await prisma.post.create({
-        data: {
-          title,
-          desc,
-          link,
-          image,
-          userName,
-          userEmail,
-          userImage,
-        },
-      });
-      res.status(200).json(newPost);
-    } catch (error) {
-      res.status(500).json({ error: "Erreur lors de la création du post" });
-    }
-  } else {
-    res.status(405).json({ message: "Méthode non autorisée" });
-  }
-}
+//     try {
+//       console.log("request ok ");
+//       // const newPost = await prisma.post.create({
+//       //   data: {
+//       //     title,
+//       //     desc,
+//       //     link,
+//       //     image,
+//       //     userName,
+//       //     userEmail,
+//       //     userImage,
+//       //   },
+//       // });
+//       // res.status(200).json(newPost);
+//       res.status(200).json({ message: "request ok " });
+//     } catch (error) {
+//       res.status(500).json({ error: "Erreur lors de la création du post" });
+//     }
+//   } else {
+//     res.status(405).json({ message: "Méthode non autorisée" });
+//   }
+// }
