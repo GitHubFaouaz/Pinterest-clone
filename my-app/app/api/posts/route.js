@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 export async function POST(req) {
   try {
     const formData = await req.formData(); // Récupérer les données du formulaire
-    const { title, desc, link, userName, userEmail, userImage } =
+    const { title, desc, link, fileImage, userName, userEmail, userImage } =
       Object.fromEntries(formData);
 
     const newPost = prisma.post.create({
@@ -17,7 +17,7 @@ export async function POST(req) {
         title: title,
         desc: desc,
         link: link,
-        image: "pas encore", // Enregistrez le chemin de l'image
+        image: fileImage, // Enregistrez le chemin de l'image
         userName: userName,
         userEmail: userEmail,
         userImage: userImage,
